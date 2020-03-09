@@ -7,13 +7,12 @@ solver = Solver(crossroad)
 solver.solve()
 solver.print()
 
-#TODO: Handle websocket data and update crossroad
+#TODO: Handle websocket data
 
 while (crossroad.totalTraffic() > 0):
     crossroad.update()
-    solver.crossroad = crossroad
-    solver.solve()
+    solver.solve()#updates solveValue in each trafficLight
     solver.print()
-    time.sleep(1)
+    time.sleep(0.5)
 
 print("done")
