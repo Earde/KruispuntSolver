@@ -10,7 +10,7 @@ class TrafficLight:
         return self.priority * self.quantity * self.weight
 
     def update(self):
-        if self.solveValue >= 1 and self.quantity:
+        if self.solveValue >= 1 and self.quantity > 0:
             self.quantity -= 1
         if self.quantity > 0:
             self.weight += 0.01 * self.quantity
