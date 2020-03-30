@@ -107,11 +107,9 @@ class Crossroad:
         self.lights["gf1"].priority = TrafficPriority.CYCLE
         self.lights["gf2"].priority = TrafficPriority.CYCLE
 
-        self.lights["a1"].quantity = 5
-
-    def update(self):
+    def update(self, t):
         for key in self.lights:
-            self.lights[key].update()
+            self.lights[key].update(t)
             self.lights[key].fakeTraffic()
 
     def totalTraffic(self):

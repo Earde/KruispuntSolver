@@ -1,6 +1,9 @@
-from Crossroad import Crossroad
-from Solver import Solver
+from Crossroads.Crossroad import Crossroad
+from Solving.Solver import Solver
 import time
+import os
+
+clear = lambda: os.system('cls')
 
 crossroad = Crossroad()
 solver = Solver(crossroad)
@@ -9,10 +12,12 @@ solver.print()
 
 #TODO: Handle websocket data
 
-while (crossroad.totalTraffic() > 0):
-    crossroad.update()
+sleepTime = 0.5
+while (True):
+    clear()
+    crossroad.update(sleepTime)
     solver.solve()#updates solveValue in each trafficLight
     solver.print()
-    time.sleep(0.5)
+    time.sleep(sleepTime)
 
 print("done")

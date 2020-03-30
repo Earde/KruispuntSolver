@@ -1,5 +1,5 @@
 from pulp import *
-from Crossroad import Crossroad
+from Crossroads.Crossroad import Crossroad
 
 class Solver:
     crossroad = None
@@ -10,6 +10,11 @@ class Solver:
     def addConstraint(self, p, t, l, r):
         p += t[l] + t[r] <= 1
 
+    def needsToBeOrangeOrGreen(self, p, val, trafficStatus):
+        if (trafficStatus > 1):
+            trafficStatus = 1
+        p += val >= trafficStatus
+
     def solve(self):
         #variables
         tls = LpVariable.dicts("vars", self.crossroad.lightNames, 0, 1, cat='Integer')
@@ -18,6 +23,7 @@ class Solver:
         problem = LpProblem("trafficLight", LpMaximize)
 
         for key in self.crossroad.lights:
+            self.needsToBeOrangeOrGreen(problem, tls[key], self.crossroad.lights[key].status)
             for i in range(len(self.crossroad.lights[key].constraints)):
                 self.addConstraint(problem, tls, key, self.crossroad.lights[key].constraints[i])
 
@@ -34,4 +40,4 @@ class Solver:
         #print(problem)
         #print(objective)
         for key in self.crossroad.lights:
-            print(key +":   " + str(self.crossroad.lights[key].solveValue))
+            print(key +":   " + str(self.crossroad.lights[key].status))
