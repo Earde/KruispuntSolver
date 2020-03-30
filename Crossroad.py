@@ -1,4 +1,5 @@
-from TrafficLight import TrafficLight
+from Traffic.TrafficLight import TrafficLight
+from Traffic.TrafficPriority import TrafficPriority
 
 class Crossroad:
     #traffic light dictionary
@@ -12,7 +13,7 @@ class Crossroad:
     def __init__(self):
         #create traffic lights
         for i in range(len(self.lightNames)):
-            self.lights[self.lightNames[i]] = TrafficLight(1.0, 5.0, 1.0)
+            self.lights[self.lightNames[i]] = TrafficLight(1.0, 0.0, 1.0)
         #constraints of each traffic light
         self.lights["a1"].constraints = ["bb1", "b2", "b3", "b4", "b5", "c1", "c2", "d1", 
                                     "d2", "gv1", "gv2", "gf1", "gf2", "fv1", "fv2", "fv3", 
@@ -68,12 +69,50 @@ class Crossroad:
         self.lights["gf2"].constraints = ["a1", "a2", "a3", "a4", "ab1", "ab2", "b2", "b3", 
                                     "bb1", "c1", "d3"]
 
-        #TODO: priorities of each traffic light
-        #self.lights["a1"].priority = 5
+
+        #priorities of each traffic light
+        self.lights["a1"].priority = TrafficPriority.CAR
+        self.lights["a2"].priority = TrafficPriority.CAR
+        self.lights["a3"].priority = TrafficPriority.CAR
+        self.lights["a4"].priority = TrafficPriority.CAR
+        self.lights["ab1"].priority = TrafficPriority.BUS
+        self.lights["ab2"].priority = TrafficPriority.BUS
+        self.lights["b1"].priority = TrafficPriority.CAR
+        self.lights["b2"].priority = TrafficPriority.CAR
+        self.lights["b3"].priority = TrafficPriority.CAR
+        self.lights["b4"].priority = TrafficPriority.CAR
+        self.lights["bb1"].priority = TrafficPriority.BUS
+        self.lights["c1"].priority = TrafficPriority.CAR
+        self.lights["c2"].priority = TrafficPriority.CAR
+        self.lights["c3"].priority = TrafficPriority.CAR
+        self.lights["d1"].priority = TrafficPriority.CAR
+        self.lights["d2"].priority = TrafficPriority.CAR
+        self.lights["d3"].priority = TrafficPriority.CAR 
+        self.lights["ev1"].priority = TrafficPriority.WALK
+        self.lights["ev2"].priority = TrafficPriority.WALK
+        self.lights["ev3"].priority = TrafficPriority.WALK
+        self.lights["ev4"].priority = TrafficPriority.WALK
+        self.lights["ef1"].priority = TrafficPriority.CYCLE
+        self.lights["ef2"].priority = TrafficPriority.CYCLE
+        self.lights["fv1"].priority = TrafficPriority.WALK
+        self.lights["fv2"].priority = TrafficPriority.WALK
+        self.lights["fv3"].priority = TrafficPriority.WALK
+        self.lights["fv4"].priority = TrafficPriority.WALK
+        self.lights["ff1"].priority = TrafficPriority.CYCLE
+        self.lights["ff2"].priority = TrafficPriority.CYCLE
+        self.lights["gv1"].priority = TrafficPriority.WALK
+        self.lights["gv2"].priority = TrafficPriority.WALK
+        self.lights["gv3"].priority = TrafficPriority.WALK
+        self.lights["gv4"].priority = TrafficPriority.WALK
+        self.lights["gf1"].priority = TrafficPriority.CYCLE
+        self.lights["gf2"].priority = TrafficPriority.CYCLE
+
+        self.lights["a1"].quantity = 5
 
     def update(self):
         for key in self.lights:
             self.lights[key].update()
+            self.lights[key].fakeTraffic()
 
     def totalTraffic(self):
         c = 0
