@@ -30,7 +30,7 @@ class TrafficLight:
         if self.status is TrafficStatus.RED and self.solveValue > 0.0:
             self.status = TrafficStatus.GREEN
             self.time = 0.0
-        if self.time > self.minGreen and self.solveValue is 0.0:
+        if self.time >= self.minGreen and self.status is TrafficStatus.GREEN and self.solveValue is 0.0:
             self.status is TrafficStatus.ORANGE
             self.time = 0.0
         #ORANGE
@@ -42,6 +42,7 @@ class TrafficLight:
             blocking = False
         elif self.status is TrafficStatus.RED and self.time >= self.minRed:
             self.blocking = True
+
         if self.quantity > 0:
             self.weight += 0.01 * self.quantity
         else:
