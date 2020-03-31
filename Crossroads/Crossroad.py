@@ -1,5 +1,6 @@
 from Traffic.TrafficLight import TrafficLight
 from Traffic.TrafficPriority import TrafficPriority
+import json
 
 class Crossroad:
     #traffic light dictionary
@@ -69,7 +70,6 @@ class Crossroad:
         self.lights["gf2"].constraints = ["a1", "a2", "a3", "a4", "ab1", "ab2", "b2", "b3", 
                                     "bb1", "c1", "d3"]
 
-
         #priorities of each traffic light
         self.lights["a1"].priority = TrafficPriority.CAR
         self.lights["a2"].priority = TrafficPriority.CAR
@@ -108,12 +108,26 @@ class Crossroad:
         self.lights["gf2"].priority = TrafficPriority.CYCLE
 
     def update(self, t):
+        hasChanged = False
         for key in self.lights:
+            oldStatus = self.lights[key].status
             self.lights[key].update(t)
-            self.lights[key].fakeTraffic()
+            if hasChanged is False and self.lights[key].status is not oldStatus:
+                hasChanged = True
+        return hasChanged
 
     def totalTraffic(self):
         c = 0
         for key in self.lights:
             c += self.lights[key].quantity
         return c
+
+    def getJson(self):
+        obj = {}
+        for key in self.lights:
+            obj[key] = self.lights[key].status
+        return json.dumps(obj)
+
+    def print(self):
+        for key in self.lights:
+            print(key +":   " + str(self.lights[key].status))

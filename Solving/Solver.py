@@ -16,6 +16,10 @@ class Solver:
         p += val >= trafficStatus
 
     def solve(self):
+        oldSolvedValues = []
+        for l in self.crossroad.lights.values():
+            oldSolvedValues.append(l.status)
+
         #variables
         tls = LpVariable.dicts("vars", self.crossroad.lightNames, 0, 1, cat='Integer')
 
@@ -36,8 +40,10 @@ class Solver:
         for key in self.crossroad.lights:
             self.crossroad.lights[key].solveValue = tls[key].varValue
 
-    def print(self):
-        #print(problem)
-        #print(objective)
-        for key in self.crossroad.lights:
-            print(key +":   " + str(self.crossroad.lights[key].status))
+        newSolvedValues = []
+        for l in self.crossroad.lights.values():
+            newSolvedValues.append(l.status)
+
+        if oldSolvedValues is newSolvedValues:
+            return False
+        return True

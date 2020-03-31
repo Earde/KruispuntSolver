@@ -31,7 +31,7 @@ class TrafficLight:
             self.status = TrafficStatus.GREEN
             self.time = 0.0
         if self.time >= self.minGreen and self.status is TrafficStatus.GREEN and self.solveValue is 0.0:
-            self.status is TrafficStatus.ORANGE
+            self.status = TrafficStatus.ORANGE
             self.time = 0.0
         #ORANGE
         if self.status is TrafficStatus.ORANGE and self.time >= self.minOrange:
