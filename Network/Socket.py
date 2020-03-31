@@ -1,7 +1,7 @@
 #//trafic.azurewebsites.net/controller #//echo.websocket.org/
 import websocket
 import json
-#from websocket import create_connection
+from websocket import create_connection
 
 class Socket:
     def __init__(self, ip):
@@ -19,9 +19,9 @@ class Socket:
         return True
 
     def connect(self):
-        self.ws = websocket.WebSocket()
-        self.ws.connect("ws:" + self.ip, http_proxy_host="proxy_host_name", http_proxy_port=8000)
-        #ws = create_connection("ws:" + self.ip)
+        #self.ws = websocket.WebSocket()
+        #self.ws.connect("ws:" + self.ip, http_proxy_host="proxy_host_name", http_proxy_port=8000)
+        self.ws = create_connection("ws:" + self.ip)
         print("Connected.")
     
     def send(self, message):
@@ -30,7 +30,7 @@ class Socket:
     def receive(self):
         message = self.ws.recv()
         if self.isvalidjson(message):
-            return message
+            return json.loads(message)
         return None
 
     def close(self):

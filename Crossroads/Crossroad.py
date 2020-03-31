@@ -122,6 +122,10 @@ class Crossroad:
             c += self.lights[key].quantity
         return c
 
+    def setQuantities(self, obj):
+        for key in obj:
+            self.lights[key].quantity = obj[key];
+            
     def getJson(self):
         obj = {}
         for key in self.lights:

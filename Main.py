@@ -20,6 +20,10 @@ sleepTime = 1.0
 while (True):
     clear()
 
+    obj = socket.receive()
+    if obj is not None:
+        crossroad.setQuantities(obj)
+
     solver.solve()
     if crossroad.update(sleepTime):
         socket.send(crossroad.getJson())
