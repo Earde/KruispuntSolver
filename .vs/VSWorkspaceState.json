@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Traffic"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\Traffic\\TrafficStatus.py",
   "PreviewInSolutionExplorer": false
 }
