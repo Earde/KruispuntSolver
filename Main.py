@@ -14,31 +14,28 @@ socket = Socket(crossroad)
 solver = Solver(crossroad)
 solver.solve()
 
-async def solve():
-    while True:
-        sleepTime = 1
-        solver.solve()
-        if crossroad.update(sleepTime):
-            await socket.send(crossroad.getJson())
+async def solve(sleepTime):
+    solver.solve()
+    if crossroad.update(sleepTime):
+        await socket.send(crossroad.getJson())
         
-        clear()
-        crossroad.print()
-        await asyncio.sleep(sleepTime)
+    #clear()
+    crossroad.print()
 
 #TODO: Handle websocket data
 async def main():
-    server = websockets.serve(socket.receive, "localhost", 8000)
+    await websockets.serve(socket.receive, "localhost", 8000)._create_server()
 
-    task = asyncio.Task(solve())
     while True:
-        await asyncio.sleep(1)
+        sleepTime = 1
+        await solve(sleepTime)
+        await asyncio.sleep(sleepTime)
         
 loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
 try:
-    loop.run_until_complete(main())
+    loop.create_task(main())
+    loop.run_forever()
 finally:
-    loop.run_until_complete(loop.shutdown_asyncgens())
     loop.close()
 
 print("done")
