@@ -21,7 +21,7 @@ class Socket:
     async def send(self, message):
         await websocket.send(message)
 
-    async def recieve(self, websocket, path):
+    async def receive(self, websocket, path):
         print("testing")
         message = await websocket.recv()
         print(message)
