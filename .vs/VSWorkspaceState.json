@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Network"
+    "\\Crossroads",
+    "\\Network",
+    "\\Solving",
+    "\\Traffic"
   ],
-  "SelectedNode": "\\Network\\Socket.py",
+  "SelectedNode": "\\Main.py",
   "PreviewInSolutionExplorer": false
 }
