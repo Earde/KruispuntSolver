@@ -14,7 +14,7 @@ solver = Solver(crossroad)
 solverThread = SolverThread(2, solver, crossroad, socket)
 
 try:
-    #solverThread.start()
+    solverThread.start()
     server = websockets.serve(socket.receive, "localhost", 8000)
     loop = asyncio.get_event_loop()
     loop.run_until_complete(server)
@@ -22,5 +22,4 @@ try:
 except:
     print("error")
 finally:
-    #loop.close()
     print("done")

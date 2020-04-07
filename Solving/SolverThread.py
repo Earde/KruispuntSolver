@@ -18,11 +18,11 @@ class SolverThread (threading.Thread):
 
     def run(self):
         while True:
-            #self.solver.solve()
-            #if self.crossroad.update(self.sleepTime):
-            #    self.socket.send(self.crossroad.getJson())
+            self.solver.solve()
+            if self.crossroad.update(self.sleepTime):
+                print("update")
+                #self.socket.send(self.crossroad.getJson())
         
             #self.clear()
             #self.crossroad.printTraffic()
-            print("solverThread")
             time.sleep(self.sleepTime)

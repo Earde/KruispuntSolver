@@ -23,18 +23,19 @@ class Socket:
                 return False
         return True
 
-    def send(self, message):
-        coro = websocket.send(message)
-        future = asyncio.run_coroutine_threadsafe(coro, loop)
+    async def send(self, message):
+        async with websockets.connect('ws://localhost:8000') as websocket:
+            await websocket.send(message)
 
     async def receive(self, websocket, path):
-        print("testing")
+        message = ""
         try:
             message = await websocket.recv()
-            print(message)
-            #if self.isValidJson(message):
-            #    self.crossroad.setQuantities(json.loads(message))
+            if self.isValidJson(message):
+                self.crossroad.setQuantities(json.loads(message))
+            returnmessage = self.crossroad.getJson()
+            await websocket.send(returnmessage)
         except:
             print("receive error")
         finally:
-            print("received")
+            print(message)
