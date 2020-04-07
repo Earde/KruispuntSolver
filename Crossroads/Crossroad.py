@@ -132,6 +132,10 @@ class Crossroad:
             obj[key] = self.lights[key].status
         return json.dumps(obj)
 
-    def print(self):
+    def printStatus(self):
         for key in self.lights:
             print(key +":   " + str(self.lights[key].status))
+
+    def printTraffic(self):
+        for key in self.lights:
+            print(key +":   " + str(self.lights[key].quantity))
