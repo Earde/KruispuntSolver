@@ -44,21 +44,22 @@ class TrafficLight:
         if self.status is TrafficStatus.ORANGE and self.time >= self.minOrange:
             self.status = TrafficStatus.RED
             self.time = 0.0
-        # Rood ontruimingstijd klaar
+        # Rood ontruimingstijd nog bezig
         if self.status is TrafficStatus.RED and self.time < self.minClearWay:
             blocking = True
-        # Rood ontruimingstijd nog bezig
+        # Rood ontruimingstijd klaar
         else:
             self.blocking = False
 
+        # Verhoog weights voor verkeer dat al langer staat te wachten
         if self.status is TrafficStatus.RED and self.quantity > 0:
-            self.weight += 0.01 * self.quantity
+            self.weight += 0.05
         else:
             self.weight = 1.0
 
     def fakeTraffic(self):
         #add fake traffic
-        if (randrange(30) == 10):
+        if (randrange(30) == 10): #1 op 30
             self.quantity += 1
         #resolve fake traffic
         if self.status is TrafficStatus.GREEN and self.quantity > 0:
