@@ -33,8 +33,7 @@ class Socket:
             message = await websocket.recv()
             if self.isValidJson(message):
                 self.crossroad.setQuantities(json.loads(message))
-            returnmessage = self.crossroad.getJson()
-            await websocket.send(returnmessage)
+            await websocket.send(self.crossroad.getJson())
         except:
             print("receive error")
         finally:

@@ -10,10 +10,13 @@ class Solver:
     def addConstraint(self, p, t, l, r):
         p += t[l] + t[r] <= 1
 
-    def needsToBeOrangeOrGreen(self, p, val, trafficStatus):
-        if (trafficStatus > 1):
-            trafficStatus = 1
-        p += val >= trafficStatus
+    def needsToBeOrangeOrGreen(self, p, val, needsToBeOn):
+        if (needsToBeOn):
+            p += val >= 1
+
+    def needsToBeRed(self, p, val, blocking):
+        if (blocking):
+            p += val == 0
 
     def solve(self):
         oldSolvedValues = []
@@ -27,7 +30,11 @@ class Solver:
         problem = LpProblem("trafficLight", LpMaximize)
 
         for key in self.crossroad.lights:
-            self.needsToBeOrangeOrGreen(problem, tls[key], self.crossroad.lights[key].status)
+            # Is in ontruimingstijds en moet dus rood blijven
+            self.needsToBeRed(problem, tls[key], self.crossroad.lights[key].blocking)
+            # Oranje/groen moet verplicht aanblijven ivm minimale tijd
+            self.needsToBeOrangeOrGreen(problem, tls[key], self.crossroad.lights[key].needsToBeOn)
+            # Voeg versperrende wegen constraints toe
             for i in range(len(self.crossroad.lights[key].constraints)):
                 self.addConstraint(problem, tls, key, self.crossroad.lights[key].constraints[i])
 

@@ -8,12 +8,11 @@ import websockets
 import os
 
 class SolverThread (threading.Thread):
-    def __init__(self, sleepTime, solver, crossroad, socket):
+    def __init__(self, sleepTime, solver, crossroad):
         threading.Thread.__init__(self)
         self.sleepTime = sleepTime
         self.solver = solver
         self.crossroad = crossroad
-        self.socket = socket
         self.clear = lambda: os.system('cls')
 
     def run(self):
@@ -21,8 +20,4 @@ class SolverThread (threading.Thread):
             self.solver.solve()
             if self.crossroad.update(self.sleepTime):
                 print("update")
-                #self.socket.send(self.crossroad.getJson())
-        
-            #self.clear()
-            #self.crossroad.printTraffic()
             time.sleep(self.sleepTime)

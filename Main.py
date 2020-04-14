@@ -11,7 +11,7 @@ crossroad = Crossroad()
 socket = Socket(crossroad)
 solver = Solver(crossroad)
 
-solverThread = SolverThread(2, solver, crossroad, socket)
+solverThread = SolverThread(0.5, solver, crossroad)
 
 try:
     solverThread.start()

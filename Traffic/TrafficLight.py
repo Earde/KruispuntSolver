@@ -13,6 +13,7 @@ class TrafficLight:
     minClearWay = 6.0
 
     blocking = False #kijkt of er nog ontruimt moet worden
+    needsToBeOn = False
 
     time = 0.0
 
@@ -26,24 +27,31 @@ class TrafficLight:
 
     def update(self, t):
         self.time += t
-        #GREEN
-        if self.status is TrafficStatus.RED and self.solveValue > 0.0:
+        # Rood naar Groen
+        if self.status is TrafficStatus.RED and self.time >= self.minClearWay and self.solveValue > 0.0:
             self.status = TrafficStatus.GREEN
             self.time = 0.0
-        if self.time >= self.minGreen and self.status is TrafficStatus.GREEN and self.solveValue is 0.0:
+        # Groen/oranje moet aanblijven
+        if (self.status is TrafficStatus.GREEN and self.time < self.minGreen) or (self.status is TrafficStatus.ORANGE and self.time < self.minOrange):
+            self.needsToBeOn = True
+        else:
+            self.needsToBeOn = False
+        # Groen naar oranje
+        if self.status is TrafficStatus.GREEN and self.time >= self.minGreen and self.solveValue <= 0.0:
             self.status = TrafficStatus.ORANGE
             self.time = 0.0
-        #ORANGE
+        # Oranje naar rood
         if self.status is TrafficStatus.ORANGE and self.time >= self.minOrange:
             self.status = TrafficStatus.RED
             self.time = 0.0
-        #RED
-        if self.status is TrafficStatus.RED and self.time >= self.minClearWay:
-            blocking = False
-        elif self.status is TrafficStatus.RED and self.time >= self.minRed:
-            self.blocking = True
+        # Rood ontruimingstijd klaar
+        if self.status is TrafficStatus.RED and self.time < self.minClearWay:
+            blocking = True
+        # Rood ontruimingstijd nog bezig
+        else:
+            self.blocking = False
 
-        if self.quantity > 0:
+        if self.status is TrafficStatus.RED and self.quantity > 0:
             self.weight += 0.01 * self.quantity
         else:
             self.weight = 1.0
