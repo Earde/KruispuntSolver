@@ -8,7 +8,7 @@ class Crossroad:
     #list of names for dictionary keys
     lightNames = ["A1", "A2", "A3", "A4", "AB1", "AB2", "B1", "B2", "B3", "B4", "B5",
                     "BB1", "C1", "C2", "C3", "D1", "D2", "D3", "EV1", "EV2", "EV3", "EV4",
-                    "E1", "E2", "FV1", "FV2", "FV3", "FV4", "FF1", "FF2", "GV1", "GV2",
+                    "E1", "FV1", "FV2", "FV3", "FV4", "FF1", "FF2", "GV1", "GV2",
                     "GV3", "GV4", "GF1" , "GF2"]
 
     def __init__(self):
@@ -19,34 +19,34 @@ class Crossroad:
         self.lights["A1"].constraints = ["BB1", "B2", "B3", "B4", "B5", "C1", "C2", "D1", 
                                     "D2", "GV1", "GV2", "GF1", "GF2", "FV1", "FV2", "FV3", 
                                     "FV4", "FF1", "FF2"]
-        self.lights["A2"].constraints = ["AB1", "B1", "C1", "C2", "EV4", "E1", "E2", "GV1", 
+        self.lights["A2"].constraints = ["AB1", "B1", "C1", "C2", "EV4", "E1",  "GV1", 
                                     "GV2", "GF1", "GF2"]
         self.lights["A3"].constraints = ["AB1", "B1", "C1", "C2", "C3", "D1", "D2", "EV3", 
-                                    "EV4", "E1", "E2", "GV1", "GV2", "GF1", "GF2"]
+                                    "EV4", "E1",  "GV1", "GV2", "GF1", "GF2"]
         self.lights["A4"].constraints = ["AB1", "AB2", "B1", "D2", "GV1", "GV2", "GF1", "GF2"]
         self.lights["AB1"].constraints = ["A2", "A3", "A4", "B1", "C1", "C2", "C3", "D1", "D2", 
-                                        "EV3", "EV4", "E1", "E2", "GV1", "GV2", "GF1", "GF2"]
+                                        "EV3", "EV4", "E1",  "GV1", "GV2", "GF1", "GF2"]
         self.lights["AB2"].constraints = ["A4", "B1", "D2", "GV1", "GV2", "GF1", "GF2"]
         self.lights["B1"].constraints = ["A2", "A3", "A4", "AB1", "AB2", "C1", "C2", "D1", 
-                                    "D2", "EV1", "EV2", "E1", "E2"]
+                                    "D2", "EV1", "EV2", "E1"]
         self.lights["B2"].constraints = ["A1", "C1", "C2", "D1", "D2", "D3", "EV1", "EV2", 
-                                    "E1", "E2", "GV3", "GV4", "GF1", "GF2"]
+                                    "E1",  "GV3", "GV4", "GF1", "GF2"]
         self.lights["B3"].constraints = ["A1", "C1", "C2", "D1", "D2", "D3", "EV1", "EV2", 
-                                    "E1", "E2", "GV3", "GV4", "GF1", "GF2"]
-        self.lights["B4"].constraints = ["A1", "B5", "BB1", "C2", "EV1", "EV2", "E1", "E2", 
+                                    "E1",  "GV3", "GV4", "GF1", "GF2"]
+        self.lights["B4"].constraints = ["A1", "B5", "BB1", "C2", "EV1", "EV2", "E1",  
                                     "FV3", "FV4", "FF1", "FF2"]
         self.lights["BB1"].constraints = ["A1", "B4", "C2", "D1", "D2", "D3", "EV1", "EV2", 
-                                    "E1", "E2", "GV3", "GV4", "GF1", "GF2"]
+                                    "E1",  "GV3", "GV4", "GF1", "GF2"]
         self.lights["C1"].constraints = ["A1", "A2", "A3", "AB1", "B1", "B2", "B3", "D2", 
                                     "D3", "GV3", "GV4", "GF1", "GF2"]
         self.lights["C2"].constraints = ["A1", "A2", "A3", "AB1", "B1", "B2", "B3", "B4", 
                                     "B5", "BB1", "D1", "FV3", "FV4", "FF1", "FF2"]
-        self.lights["C3"].constraints = ["A2", "A3", "AB1", "D1", "EV3", "EV4", "E1", "E2"]
+        self.lights["C3"].constraints = ["A2", "A3", "AB1", "D1", "EV3", "EV4", "E1"]
         self.lights["D1"].constraints = ["A1", "A2", "A3", "AB1", "B1", "B2", "B3", "BB1", 
-                                    "C2", "C3", "EV3", "EV4", "E1", "E2", "FV1", "FV2", 
+                                    "C2", "C3", "EV3", "EV4", "E1",  "FV1", "FV2", 
                                     "FF1", "FF2"]
         self.lights["D2"].constraints = ["A1", "A2", "A3", "AB1", "AB2", "B1", "B2", "B3", "BB1", 
-                                    "C1", "EV3", "EV4", "E1", "E2", "FV1", "FV2", "FF1", "FF2"]
+                                    "C1", "EV3", "EV4", "E1",  "FV1", "FV2", "FF1", "FF2"]
         self.lights["D3"].constraints = ["B2", "B3", "BB1", "C1", "FV1", "FV2", "FF1", "FF2", 
                                     "GV3", "GV4", "GF1", "GF2"]
         self.lights["EV1"].constraints = ["B1", "B2", "B3", "B4", "BB1"]
@@ -54,7 +54,6 @@ class Crossroad:
         self.lights["EV3"].constraints = ["A2", "A3", "AB1", "C3", "D1"]
         self.lights["EV4"].constraints = ["A2", "A3", "AB1", "C3", "D1"]
         self.lights["E1"].constraints = ["A2", "A3", "AB1", "B1", "B2", "B3", "B4", "BB1", "C3", "D1"]
-        self.lights["E2"].constraints = ["A2", "A3", "AB1", "B1", "B2", "B3", "B4", "BB1", "C3", "D1"]
         self.lights["FV1"].constraints = ["D1", "D2", "D3"]
         self.lights["FV2"].constraints = ["D1", "D2", "D3"]
         self.lights["FV3"].constraints = ["A1", "B4", "C2"]
@@ -93,7 +92,6 @@ class Crossroad:
         self.lights["EV3"].priority = TrafficPriority.WALK
         self.lights["EV4"].priority = TrafficPriority.WALK
         self.lights["E1"].priority = TrafficPriority.CYCLE
-        self.lights["E2"].priority = TrafficPriority.CYCLE
         self.lights["FV1"].priority = TrafficPriority.WALK
         self.lights["FV2"].priority = TrafficPriority.WALK
         self.lights["FV3"].priority = TrafficPriority.WALK
