@@ -28,7 +28,7 @@ class TrafficLight:
     def update(self, t):
         self.time += t
         # Rood naar Groen
-        if self.status is TrafficStatus.RED and self.time >= self.minClearWay and self.solveValue > 0.0:
+        if self.status is TrafficStatus.RED and self.time >= self.minRed and not self.blocking and self.solveValue > 0.0:
             self.status = TrafficStatus.GREEN
             self.time = 0.0
         # Groen/oranje moet aanblijven
@@ -46,7 +46,7 @@ class TrafficLight:
             self.time = 0.0
         # Rood ontruimingstijd nog bezig
         if self.status is TrafficStatus.RED and self.time < self.minClearWay:
-            blocking = True
+            self.blocking = True
         # Rood ontruimingstijd klaar
         else:
             self.blocking = False
