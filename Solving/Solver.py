@@ -16,7 +16,7 @@ class Solver:
 
     def needsToBeRed(self, p, val, blocking):
         if (blocking):
-            p += val == 0
+            p += val <= 0
 
     def solve(self):
         oldSolvedValues = []
@@ -36,6 +36,7 @@ class Solver:
             self.needsToBeOrangeOrGreen(problem, tls[key], self.crossroad.lights[key].needsToBeOn)
             # Voeg versperrende wegen constraints toe
             for i in range(len(self.crossroad.lights[key].constraints)):
+                self.needsToBeRed(problem, tls[self.crossroad.lights[key].constraints[i]], self.crossroad.lights[key].blocking)
                 self.addConstraint(problem, tls, key, self.crossroad.lights[key].constraints[i])
 
         objective = None

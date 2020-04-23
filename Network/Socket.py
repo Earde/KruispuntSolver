@@ -15,29 +15,28 @@ class Socket:
              "E1":1,"EV1":1,"EV2":1,"EV3":1,"EV4":1,
              "FF1":1,"FF2":1,"FV1":1,"FV2":1,"FV3":1,"FV4":1,
              "GF1":1,"GF2":1,"GV1":1,"GV2":1,"GV3":1,"GV4":1}
-        obj = json.loads(message)
-        if type(obj) is not type({}):
+        obj = json.loads(message) # Convert to json object
+        if type(obj) is not type({}): # Check if object is dictionary
             return False
-        for i in x:
+        for i in x: # Check if all lanes of crossroad are stored in object
             if i not in obj:
                 return False
         return True
 
     async def receive(self, websocket, path):
-        message = ""
         try:
-            message = await websocket.recv()
-            message = message.replace("\\r", "")
-            message = message.replace("\r", "")
-            message = message.replace("\\n", "")
-            message = message.replace("\n", "")
-            if self.isValidJson(message):
-                self.crossroad.setQuantities(json.loads(message))
-                response = self.crossroad.getJson()
-                if response and response.strip():
-                    await websocket.send(response)
-                    #print("Response: " + response)
+            async for message in websocket:
+                if not message or not message.strip():
+                    continue
+                message = message.replace("\\r", "")
+                message = message.replace("\r", "")
+                message = message.replace("\\n", "")
+                message = message.replace("\n", "")
+                if self.isValidJson(message):
+                    self.crossroad.setQuantities(json.loads(message))
+                    response = self.crossroad.getJson()
+                    if response and response.strip():
+                        await websocket.send(response)
+                        print("Response: " + response)
         except:
             print("receive error")
-        finally:
-            print(message)

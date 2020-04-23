@@ -110,7 +110,7 @@ class Crossroad:
         for key in self.lights:
             oldStatus = self.lights[key].status
             self.lights[key].update(t)
-            if hasChanged is False and self.lights[key].status is not oldStatus:
+            if not hasChanged and self.lights[key].status is not oldStatus:
                 hasChanged = True
         return hasChanged
 
