@@ -19,8 +19,8 @@ class Crossroad:
         self.lights["A1"].constraints = ["BB1", "B2", "B3", "B4", "B5", "C1", "C2", "D1", 
                                     "D2", "GV1", "GV2", "GF1", "GF2", "FV1", "FV2", "FV3", 
                                     "FV4", "FF1", "FF2"]
-        self.lights["A2"].constraints = ["AB1", "B1", "C1", "C2", "EV4", "E1",  "GV1", 
-                                    "GV2", "GF1", "GF2"]
+        self.lights["A2"].constraints = ["AB1", "B1", "C1", "C2", "C3", "D1", "D2", "EV3", 
+                                    "EV4", "E1",  "GV1", "GV2", "GF1", "GF2"]
         self.lights["A3"].constraints = ["AB1", "B1", "C1", "C2", "C3", "D1", "D2", "EV3", 
                                     "EV4", "E1",  "GV1", "GV2", "GF1", "GF2"]
         self.lights["A4"].constraints = ["AB1", "AB2", "B1", "D2", "GV1", "GV2", "GF1", "GF2"]
@@ -105,11 +105,17 @@ class Crossroad:
         self.lights["GF1"].priority = TrafficPriority.CYCLE
         self.lights["GF2"].priority = TrafficPriority.CYCLE
 
+    def laneIsNotBlocked(self, constraints):
+        for c in constraints:
+            if self.lights[c].blocking:
+                return False
+        return True
+
     def update(self, t):
         hasChanged = False
         for key in self.lights:
             oldStatus = self.lights[key].status
-            self.lights[key].update(t)
+            self.lights[key].update(t, self.laneIsNotBlocked(self.lights[key].constraints))
             if not hasChanged and self.lights[key].status is not oldStatus:
                 hasChanged = True
         return hasChanged
