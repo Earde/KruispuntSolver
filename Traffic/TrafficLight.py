@@ -30,7 +30,7 @@ class TrafficLight:
     def getScore(self):
         multiplier = 1.0
         if self.status is TrafficStatus.GREEN:
-            multiplier = 5.0
+            multiplier = 3.0
         return self.priority * self.quantity * self.weight * multiplier # Bonus multiplier voor groene lichten om te voorkomen dat groen erg snel op oranje gaat.
 
     def update(self, t, canGoGreen):
@@ -54,9 +54,9 @@ class TrafficLight:
             self.blocking = False
         # Zet weights
         if self.status is TrafficStatus.RED and self.quantity > 0: # Verhoog weights voor verkeer dat al langer staat te wachten achter een rood stoplicht
-            self.weight += 0.05
+            self.weight *= 1.05
         elif self.status is TrafficStatus.GREEN and self.quantity > 0: # Verlaag weights voor als het stoplicht op groen staat
-            self.weight -= 0.10
+            self.weight /= 1.01
         else: # Reset weights als er geen verkeer meer staat of naar oranje gaat
             self.weight = 1.0
         if self.weight < 1.0:

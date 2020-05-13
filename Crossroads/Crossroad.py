@@ -39,6 +39,7 @@ class Crossroad:
                                     "E1",  "GV2", "GV4", "GF1", "GF2"]
         self.lights["B4"].constraints = ["A1", "B5", "BB1", "C2", "EV1", "EV3", "E1",  
                                     "FV2", "FV4", "FF1", "FF2"]
+        self.lights["B5"].constraints = ["B4", "C2", "A1"]
         self.lights["BB1"].constraints = ["A1", "B4", "C2", "D1", "D2", "D3", "EV1", "EV3", 
                                     "E1",  "GV2", "GV4", "GF1", "GF2"]
         self.lights["C1"].constraints = ["A1", "A2", "A3", "AB1", "B1", "B2", "B3", "D2", 
@@ -82,6 +83,7 @@ class Crossroad:
         self.lights["B2"].initType(CarType())
         self.lights["B3"].initType(CarType())
         self.lights["B4"].initType(CarType())
+        self.lights["B5"].initType(CarType())
         self.lights["BB1"].initType(BusType())
         self.lights["C1"].initType(CarType())
         self.lights["C2"].initType(CarType())
