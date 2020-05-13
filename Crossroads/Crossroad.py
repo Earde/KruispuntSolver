@@ -7,19 +7,19 @@ from Traffic.Types.WalkSecondType import WalkSecondType
 import json
 
 class Crossroad:
-    #traffic light dictionary
+    # Traffic light dictionary
     lights = {}
-    #list of names for dictionary keys
+    # List of names for dictionary keys
     lightNames = ["A1", "A2", "A3", "A4", "AB1", "AB2", "B1", "B2", "B3", "B4", "B5",
                     "BB1", "C1", "C2", "C3", "D1", "D2", "D3", "EV1", "EV2", "EV3", "EV4",
                     "E1", "FV1", "FV2", "FV3", "FV4", "FF1", "FF2", "GV1", "GV2",
                     "GV3", "GV4", "GF1" , "GF2"]
 
     def __init__(self):
-        #create traffic lights
+        # Create traffic lights
         for i in range(len(self.lightNames)):
             self.lights[self.lightNames[i]] = TrafficLight(1.0, 0.0, 1.0)
-        #constraints of each traffic light
+        # Constraints of each traffic light
         self.lights["A1"].constraints = ["BB1", "B2", "B3", "B4", "B5", "C1", "C2", "D1", 
                                     "D2", "GV1", "GV3", "GF1", "GF2", "FV2", 
                                     "FV4", "FF1", "FF2"]
