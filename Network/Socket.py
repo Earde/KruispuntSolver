@@ -32,12 +32,16 @@ class Socket:
                 message = message.replace("\r", "")
                 message = message.replace("\\n", "")
                 message = message.replace("\n", "")
+                message = message.replace("\t", "")
+                message = message.replace("\\t", "")
                 if self.isValidJson(message):
-                    print("Received: " + message)
+                    #print("Received: " + message)
                     self.crossroad.setQuantities(json.loads(message))
+                    #print("b")
                     response = self.crossroad.getJson()
+                    #print("c")
                     if response and response.strip():
+                        print("Response: " + response)
                         await websocket.send(response)
-                        #print("Response: " + response)
         except:
             print("receive error")

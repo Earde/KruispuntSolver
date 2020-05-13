@@ -2,8 +2,6 @@ from random import randrange
 from Traffic.TrafficStatus import TrafficStatus
 
 class TrafficLight:
-    time = 0.0
-
     def __init__(self, P, Q, W):
         self.constraints = []
         self.solveValue = 0
@@ -22,8 +20,18 @@ class TrafficLight:
 
         self.blocking = False
 
+    def initType(self, trafficType):
+        self.priority = trafficType.priority
+        self.minGreen = trafficType.minGreen
+        self.minOrange = trafficType.minOrange
+        self.minRed = trafficType.minRed
+        self.minClearWay = trafficType.minClearWay
+
     def getScore(self):
-        return self.priority * self.quantity * self.weight
+        multiplier = 1.0
+        if self.status is TrafficStatus.GREEN:
+            multiplier = 5.0
+        return self.priority * self.quantity * self.weight * multiplier # Bonus multiplier voor groene lichten om te voorkomen dat groen erg snel op oranje gaat.
 
     def update(self, t, canGoGreen):
         self.time += t
@@ -45,7 +53,7 @@ class TrafficLight:
         else:
             self.blocking = False
         # Zet weights
-        if self.status is TrafficStatus.RED and self.quantity > 0: # Verhoog weights voor verkeer dat al langer staat te wachten
+        if self.status is TrafficStatus.RED and self.quantity > 0: # Verhoog weights voor verkeer dat al langer staat te wachten achter een rood stoplicht
             self.weight += 0.05
         elif self.status is TrafficStatus.GREEN and self.quantity > 0: # Verlaag weights voor als het stoplicht op groen staat
             self.weight -= 0.10

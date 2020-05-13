@@ -4,8 +4,9 @@
     "\\Crossroads",
     "\\Network",
     "\\Solving",
-    "\\Traffic"
+    "\\Traffic",
+    "\\Traffic\\Types"
   ],
-  "SelectedNode": "\\Crossroads\\Crossroad.py",
+  "SelectedNode": "\\Traffic\\Types\\WalkSecondType.py",
   "PreviewInSolutionExplorer": false
 }
